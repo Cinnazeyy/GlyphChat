@@ -1,0 +1,4 @@
+name: GlyphChat
+version: '1.0-SNAPSHOT'
+main: li.cinnazeyy.glyphChat.GlyphChat
+api-version: '1.21'

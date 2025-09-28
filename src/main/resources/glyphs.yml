@@ -1,0 +1,13 @@
+emoji:
+  - smile:
+      keywords: ['happy','smile','smiley']
+      symbol: '\ue100'
+  - skull:
+      keywords: ['skull']
+      symbol: '\ue101'
+  - clown:
+      keywords: ['clown']
+      symbol: '\ue102'
+  - nerd:
+      keywords: ['nerd']
+      symbol: '\ue103'

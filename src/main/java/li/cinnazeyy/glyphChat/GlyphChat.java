@@ -62,7 +62,6 @@ public final class GlyphChat extends JavaPlugin {
         getComponentLogger().info("Found {} configured emojis.", emojis.size());
 
         for (Emoji emoji : emojis) {
-            getComponentLogger().info(text("loading " + emoji.toString()));
             for (String keyword : emoji.keywords()) {
                 if (EMOJI_MAP.containsKey(keyword)) {
                     getComponentLogger().warn(text("Duplicate emoji keyword found! '{}' already exists! Skipping this entry..."));
@@ -72,7 +71,6 @@ public final class GlyphChat extends JavaPlugin {
                 GLYPH_SET.add(String.valueOf(emoji.symbol()));
             }
         }
-        getComponentLogger().info("Loaded {} emojis.", EMOJI_MAP.size());
     }
 
     public static GlyphChat getInstance() {

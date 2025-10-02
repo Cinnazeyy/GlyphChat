@@ -1,3 +1,5 @@
+# Emojis are glyphs that will replace keywords surrounded by the emoji indicators (default is ':')
+# You can optionally add a permission property to the emojis
 emoji:
   - symbol: ''
     keywords: [ 'happy','smile','smiley' ]
@@ -7,3 +9,9 @@ emoji:
     keywords: [ 'clown' ]
   - symbol: ''
     keywords: [ 'nerd' ]
+
+# You can add additional glyph symbols here, that are not allowed to be entered into chat directly.
+# This can be used to prevent players sending other glyphs like role tags or GUIs into the chat.
+# There is no need to enter the emoji symbols again, as they will automatically be included.
+forbidden-glyphs:
+  - ß

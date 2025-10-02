@@ -1,0 +1,5 @@
+emoji-indicator: ':'
+
+chat-format:
+  info-prefix: '<green>[i]</green><dark_gray> » </dark_gray>'
+  alert-prefix: '<red>[!]</red><dark_gray> » </dark_gray>'

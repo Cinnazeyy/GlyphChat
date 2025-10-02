@@ -46,11 +46,6 @@ public final class GlyphChat extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
-
     public void createConfig(String configFileName) {
         File file = getDataPath().resolve(configFileName).toFile();
         if (!file.exists()) saveResource(configFileName, false);

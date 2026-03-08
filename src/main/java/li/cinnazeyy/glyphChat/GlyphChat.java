@@ -5,9 +5,12 @@ import li.cinnazeyy.glyphChat.commands.CMD_ReloadGlyphs;
 import li.cinnazeyy.glyphChat.config.ConfigUtil;
 import li.cinnazeyy.glyphChat.core.GlyphManager;
 import li.cinnazeyy.glyphChat.event.ChatListener;
+import li.cinnazeyy.glyphChat.event.EventListener;
+import li.cinnazeyy.glyphChat.utils.ChatCompletionUtil;
 import li.cinnazeyy.glyphChat.utils.ChatUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.spongepowered.configurate.ConfigurateException;
 
@@ -44,6 +47,11 @@ public final class GlyphChat extends JavaPlugin {
 
         // Register events
         getServer().getPluginManager().registerEvents(new ChatListener(), this);
+        getServer().getPluginManager().registerEvents(new EventListener(), this);
+
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            ChatCompletionUtil.refreshPlayerCompletions(player);
+        }
     }
 
     public void createConfig(String configFileName) {

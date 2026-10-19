@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
+import java.util.regex.MatchResult;
 import java.util.regex.Pattern;
 
 import static net.kyori.adventure.text.Component.text;
@@ -43,32 +43,26 @@ public class ChatListener implements Listener {
 
         Map<Character, Emoji> substitutedGlyphs = new HashMap<>();
 
-        Component replaced = event.message().replaceText(EMOJI_PATTERN, builder -> {
-            Matcher matcher = EMOJI_PATTERN.matcher(builder.content());
-            StringBuilder result = new StringBuilder();
-            while (matcher.find()) {
-                String placeholder = matcher.group(1);
+        Component replaced = event.message().replaceText(config -> config
+            .match(EMOJI_PATTERN)
+            .replacement((MatchResult matchResult, TextComponent.Builder builder) -> {
+                String placeholder = matchResult.group(1);
                 Emoji emoji = GlyphManager.EMOJI_MAP.get(placeholder);
 
                 if (emoji == null) {
                     // keep original text
-                    matcher.appendReplacement(result, Matcher.quoteReplacement(matcher.group()));
-                    continue;
+                    return text(matchResult.group());
                 }
 
                 if (emoji.permission() != null && !event.getPlayer().hasPermission(emoji.permission())) {
                     event.getPlayer().sendMessage(ChatUtils.getAlertMessageFormat("You do not have permission to use this emoji!"));
                     event.getPlayer().playSound(event.getPlayer(), SoundUtils.ERROR_SOUND, 1f, 1f);
-                    matcher.appendReplacement(result, Matcher.quoteReplacement(matcher.group()));
-                    continue;
+                    return text(matchResult.group());
                 }
 
                 substitutedGlyphs.put(emoji.symbol(), emoji);
-                matcher.appendReplacement(result, Matcher.quoteReplacement(emoji.symbol() + ""));
-            }
-            matcher.appendTail(result);
-            return text(result.toString());
-        });
+                return text(emoji.symbol() + "");
+            }));
 
         if (substitutedGlyphs.isEmpty()) return;
 
